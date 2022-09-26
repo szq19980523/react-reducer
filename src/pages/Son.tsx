@@ -1,14 +1,16 @@
-import React, { useContext } from 'react';
-import { Context } from '../App'
+import React, { Dispatch } from 'react';
+import { Action, useCount } from '../store';
 const Son = () => {
-  const context = useContext(Context)
-  console.log(context);
-
+  const context = useCount()
+  const add1 = (dispatch: Dispatch<Action>) => {
+    // 3秒后执行
+    setTimeout(() => {
+      dispatch({ type: 'increment' })
+    }, 3000)
+  }
   return (
     <div>
-      这是子组件
-      {context.state.count}
-      <div onClick={() => context.dispatch({ type: 'increment' })}>子组件里点击count + 1</div>
+      <div onClick={() => context.dispatch(add1)}>子组件里点击count + 1</div>
     </div>
   )
 }
